@@ -1,5 +1,4 @@
 <template lang="">
-  <div>
     <form class="mt-8" @submit.prevent="handleSubmit()">
       <div class="flex flex-col mt-4 pb-5 border-b-2 border-b-gray-300">
         <label for="phone_number"> شماره موبایل* </label>
@@ -19,14 +18,13 @@
         </button>
       </div>
     </form>
-  </div>
 </template>
 <script>
 export default {
   name: "MobileForm",
   setup(props, { emit }) {
     const handleSubmit = () => {
-      emit("handleStage");
+      emit("handleChangeStage");
     };
     return {
       handleSubmit,

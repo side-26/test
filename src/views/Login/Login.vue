@@ -27,26 +27,55 @@
           ></path>
         </svg>
       </figure>
-      <div class="font-bold text-2xl">ورود به تست</div>
-      
+      <div class="font-bold text-2xl pb-5">ورود به تست</div>
+      <div class="mt-5 border-b-2 border-b-gray-300">
+        <transitionGroup name="list">
+          <MessageForm v-if="isEnterd" @handleChangeStage="handleStages" />
+          <MobileForm v-else @handleChangeStage="handleStages" />
+        </transitionGroup>
+      </div>
     </section>
   </div>
 </template>
 <script>
+import MessageForm from "../../components/auth/messageForm/MessageForm.vue";
+import MobileForm from "../../components/auth/mobileForm/MobileForm.vue";
 import { ref } from "vue";
 export default {
   name: "LoginPage",
+  components: {
+    MessageForm,
+    MobileForm,
+  },
   setup(props) {
-    const stage = ref(0);
+    const isEnterd = ref(false);
     const handleStages = (nextStage) => {
-      stage.value=nextStage
-      console.log(stage.value)
+      isEnterd.value = !isEnterd.value;
+      console.log(stage.value);
     };
     return {
-      stage,
+      isEnterd,
       handleStages,
     };
   },
 };
 </script>
-<style lang=""></style>
+<style lang="css">
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
+}
+</style>
